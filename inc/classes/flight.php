@@ -806,7 +806,7 @@ class Flight
 	 */
 	public function getTurnoverFlights($toJson = false)
 	{
-		$flts = Flight::GetAll();
+		$flts = Flight::GetAll(); 
 		$turnovers = [];
 
 		foreach ($flts as $flt)
@@ -818,30 +818,48 @@ class Flight
 				$endA = strtotime($this->arrivalTime);
 				$startB = strtotime($flt->departureTime);
 				$endB = strtotime($flt->arrivalTime);
-				$fltnoA = $this->flightNumber;
-				$fltnoB = $flt->flightNumber;
+				$callsignA = $this->callsign;
+				$callsignB = $flt->callsign;
+				$gateA = $this->terminal . "-" . $this->gate;
+				$gateB = $this->terminal . "-" . $this->gate;
+				$fltnoA = substr($this->flightNumber, 2);
+				$fltnoB = substr($flt->flightNumber, 2);
 
-				// if timeframes are not collapsing
-				if (!($startA <= $endB && $endA >= $startB))
+				$callsignA = substr($callsignA, 0, 3);
+				$callsignB = substr($callsignB, 0, 3);
+
+
+				//IATA Code Inserted -> using this for calculating auto turnover flights:
+				if($this->flightNumber != $this->callsign && $flt->flightNumber != $flt->callsign)
 				{
-					// if flight numbers are 3 characters or longer
-					if (strlen($fltnoA) >= 3 && strlen($fltnoB) >= 3)
+					// if the flight numbers differs with +- 1
+					//Flights are separated for 20' till 50'
+					if (is_numeric($fltnoA) && is_numeric($fltnoB) 
+						&& abs($fltnoA - $fltnoB) == 1 && $startB - $endA >= 1200
+						//&& $startB - $endA <= 3000
+						)
 					{
-						$fltnoA = substr($fltnoA, 2);
-						$fltnoB = substr($fltnoB, 2);
-
-						// if the trimmed flight numbers are numeric
-						if (is_numeric($fltnoA) && is_numeric($fltnoB))
-						{
-							// if the flight numbers differs with +- 1
-							if ($fltnoA + 1 == $fltnoB || $fltnoA - 1 == $fltnoB)
-							{
-								if ($toJson)
-									$turnovers[] = json_decode($flt->ToJsonLite(), true);
-								else
-									$turnovers[] = $flt;
-							}
-						}
+						if ($toJson)
+							$turnovers[] = json_decode($flt->ToJsonLite(), true);
+						else
+							$turnovers[] = $flt;
+					}
+				} else {
+					//IATA Code not used -> Turnover logic:
+					//Same Airline
+					//Flights are separated for 20' till 50'
+					//Same gate
+					//Commercial callsign
+					if ($callsignA == $callsignB
+						&& $startB - $endA >= 1200
+						&& $gateA == $gateB
+						&& (strlen($this->callsign) >= 4 && strlen($flt->callsign) >= 4)
+						)
+					{
+						if ($toJson)
+							$turnovers[] = json_decode($flt->ToJsonLite(), true);
+						else
+							$turnovers[] = $flt;
 					}
 				}
 			}

@@ -43,7 +43,7 @@ function flightsTable($airport, $type)
 		$result .= '<th>Departure</th>';
 	}
 	
-	$result .= "	<th>Position</th>
+	$result .= "	<th>Stand</th>
 					<th>Status</th>
 				</tr>
 			</thead>
@@ -64,9 +64,17 @@ function flightsTable($airport, $type)
 		else if (empty($f->callsign))
 			$result .= $f->flightNumber;
 		else
-			$result .= $f->flightNumber . ' / ' . $f->callsign;
-
-		$result .= $f->getTurnoverFlights() ? '<span class="turnoverIcon" data-toggle="tooltip" title="Turnover flight available"></span>' : '';
+			$result .= $f->callsign;
+	
+		$turnovers = $f->getTurnoverFlights();
+		$turnovers_names = array();
+		foreach ($turnovers as $turn)
+		{
+			array_push($turnovers_names, $turn->callsign);			
+		}
+		$result .= $turnovers ? '<span class="turnoverIcon" data-toggle="tooltip" title="Turnover flight: ' . implode(", ", $turnovers_names) . '"></span>' : '';
+		$result .= '</td>';	
+		
 		$result .= '</td>';
 
 		$result .= '<td><span data-toggle="tooltip" title="' . $f->getAircraftName() . '">' . $f->aircraftIcao . ($f->aircraftFreighter ? "/F" : "") . '</span></td>';
@@ -111,7 +119,7 @@ function flightsTable($airport, $type)
 // getting all airports which are participating in the event
 $apts = EventAirport::GetAll();
 
-echo '<main role="main" class="container">
+echo '<main role="main" class="container-fluid">
 		<div class="row">
 			<div class="col-lg-8">';
 

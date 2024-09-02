@@ -1,0 +1,131 @@
+css/style.css
+(from row 0 to /* Flight list */)
+@import"https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap";
+
+body {
+	padding-top: 5rem;
+}
+* {
+    font-family: "Poppins",Verdana,sans-serif
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Nunito Sans",Tahoma,sans-serif !important;
+    color: #0d2c99
+}
+.navbar-dark.bg-primary {
+	background-color: #0D2C99 !important;
+}
+
+.container-fluid {
+	padding-left: 5rem;
+	padding-right: 5rem;
+}
+
+
+h1 { margin-bottom: 2rem }
+.navbar-nav > .nav-item {
+	padding: 0 0.7em;
+}
+#arrDepTab > .nav-item {
+	width: 50%;
+	text-align: center;
+}
+
+===================================
+
+inc/classes/flight.php
+
+public function getTurnoverFlights($toJson = false)
+	{
+		$flts = Flight::GetAll(); 
+		$turnovers = [];
+
+		foreach ($flts as $flt)
+		{
+			// if origin and destination airports are swapped
+			if ($this->originIcao == $flt->destinationIcao && $this->destinationIcao == $flt->originIcao)
+			{
+				$startA = strtotime($this->departureTime);
+				$endA = strtotime($this->arrivalTime);
+				$startB = strtotime($flt->departureTime);
+				$endB = strtotime($flt->arrivalTime);
+				$callsignA = $this->callsign;
+				$callsignB = $flt->callsign;
+				$gateA = $this->terminal . "-" . $this->gate;
+				$gateB = $this->terminal . "-" . $this->gate;
+				$fltnoA = substr($this->flightNumber, 2);
+				$fltnoB = substr($flt->flightNumber, 2);
+
+				$callsignA = substr($callsignA, 0, 3);
+				$callsignB = substr($callsignB, 0, 3);
+
+
+				//IATA Code Inserted -> using this for calculating auto turnover flights:
+				if($this->flightNumber != $this->callsign && $flt->flightNumber != $flt->callsign)
+				{
+					// if the flight numbers differs with +- 1
+					//Flights are separated for 20' till 50'
+					if (is_numeric($fltnoA) && is_numeric($fltnoB) 
+						&& abs($fltnoA - $fltnoB) == 1 && $startB - $endA >= 1200
+						//&& $startB - $endA <= 3000
+						)
+					{
+						if ($toJson)
+							$turnovers[] = json_decode($flt->ToJsonLite(), true);
+						else
+							$turnovers[] = $flt;
+					}
+				} else {
+					//IATA Code not used -> Turnover logic:
+					//Same Airline
+					//Flights are separated for 20' till 50'
+					//Same gate
+					//Commercial callsign
+					if ($callsignA == $callsignB
+						&& $startB - $endA >= 1200
+						&& $gateA == $gateB
+						&& (strlen($this->callsign) >= 4 && strlen($flt->callsign) >= 4)
+						)
+					{
+						if ($toJson)
+							$turnovers[] = json_decode($flt->ToJsonLite(), true);
+						else
+							$turnovers[] = $flt;
+					}
+				}
+			}
+		}
+		return $turnovers;
+	}
+
+===================================
+
+    inc/Flight.php
+
+    Row 46
+	$result .= "	<th>Position</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+		<tbody>";
+
+
+ROW 67
+
+$result .= $f->callsign;
+
+
+    $turnovers = $f->getTurnoverFlights();
+    $turnovers_names = array();
+    foreach ($turnovers as $turn)
+    {
+        array_push($turnovers_names, $turn->callsign);			
+    }
+    $result .= $turnovers ? '<span class="turnoverIcon" data-toggle="tooltip" title="Turnover flight: ' . implode(", ", $turnovers_names) . '"></span>' : '';
+
+
+ROW 122
+echo '<main role="main" class="container-fluid">
+		<div class="row">
+			<div class="col-lg-8">';

@@ -1,13 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-.navbar-brand, .navbar-nav .nav-item, h1, h2, h3, h4, h5 {
-	font-family: 'Nunito Sans', sans-serif;
-}
+@import"https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap";
 
 body {
 	padding-top: 5rem;
 }
+* {
+    font-family: "Poppins",Verdana,sans-serif
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Nunito Sans",Tahoma,sans-serif !important;
+    color: #0d2c99
+}
+.navbar-dark.bg-primary {
+	background-color: #0D2C99 !important;
+}
+
+.container-fluid {
+	padding-left: 5rem;
+	padding-right: 5rem;
+}
+
+
 h1 { margin-bottom: 2rem }
 .navbar-nav > .nav-item {
 	padding: 0 0.7em;
@@ -21,7 +34,7 @@ h1 { margin-bottom: 2rem }
 .tblFlights { font-size: 95% }
 .airport {
 	margin-bottom: 3rem;
-	border: 1px solid #D7D7DC;
+	border: 1px solid #ddd;
 	padding: 1rem;
 	box-sizing: border-box
 }
