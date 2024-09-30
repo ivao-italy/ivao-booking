@@ -325,7 +325,7 @@ class Flight
 		$gcd = haversineGreatCircleDistance($ori->latitude, $ori->longitude, $des->latitude, $des->longitude, 3440);
 		$speed = 250;
 
-		if ($query = $dbNav->Query("SELECT * FROM aircrafts WHERE icao = §", $this->aircraftIcao))
+		if ($query = $dbNav->Query("SELECT * FROM nav_aircrafts WHERE icao = §", $this->aircraftIcao))
 		{
 			if ($row = $query->fetch_assoc())
 			{
@@ -438,7 +438,7 @@ class Flight
 	public function getAircraftName()
 	{
 		global $dbNav;
-		if ($query = $dbNav->Query("SELECT * FROM aircrafts WHERE icao = §", $this->aircraftIcao))
+		if ($query = $dbNav->Query("SELECT * FROM nav_aircrafts WHERE icao = §", $this->aircraftIcao))
 		{
 			if ($row = $query->fetch_assoc())
 			{

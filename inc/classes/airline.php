@@ -20,7 +20,7 @@ class Airline
 	public static function Find($icao)
 	{
 		global $dbNav;
-		if ($query = $dbNav->Query("SELECT * FROM airlines WHERE icao = §", $icao))
+		if ($query = $dbNav->Query("SELECT * FROM nav_airlines WHERE icao = §", $icao))
 		{
 			if ($row = $query->fetch_assoc())
 				return new Airline($row);
