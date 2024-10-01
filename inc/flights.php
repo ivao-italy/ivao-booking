@@ -119,7 +119,7 @@ function flightsTable($airport, $type)
 // getting all airports which are participating in the event
 $apts = EventAirport::GetAll();
 
-echo '<main role="main" class="container-fluid">
+echo '<main role="main" class="container-fluid px-xl-5">
 		<div class="row">
 			<div class="col-lg-8">';
 

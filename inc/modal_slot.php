@@ -179,8 +179,7 @@
 							<div id="slotWxResult" class="card card-body wxResult"></div>
 <?php endif; ?>
 							<p>
-								<a href="https://www.simbrief.com/system/dispatch.php?newflight=1" target="_blank" class="btn btn-secondary btn-sm">SimBrief</a>
-								<a href="http://rfinder.asalink.net/free" target="_blank" class="btn btn-secondary btn-sm">RouteFinder</a>
+								<a href="https://www.simbrief.com/system/dispatch.php?newflight=1" target="_blank" class="btn btn-secondary btn-sm">SimBrief</a>								
 							</p>
 						</div>
 					</div>
