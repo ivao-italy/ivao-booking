@@ -118,11 +118,11 @@ echo Pages::Get();
 ?>
 	
 <footer class="footer">		
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-4">
 				<p>&copy; <?=date("Y"); ?> <a href="<?=$config["division_web"]; ?>" target="_blank"><?=$config["division_name"]; ?></a></p>
-				<p><i class="far fa-envelope-open"></i> <a href="contact">Contact us!</a></p>
+				<p><i class="far fa-envelope-open"></i> <a href="https://it.ivao.aero/about/contacts">Contact us!</a></p>
 			</div>
 			<div class="col-md-4 text-md-center">
 				<?php if (!empty($config["division_facebook"])): ?>
@@ -137,6 +137,7 @@ echo Pages::Get();
 			</div>
 			<div class="col-md-4 text-md-right">
 				<p>Developed by <a href="https://www.ivao.aero/Member.aspx?ID=540147" target="_blank">Donat Marko (540147)</a></p>
+				<p>Customized with ❤️ for IVAO IT by <a href="https://www.ivao.aero/Member.aspx?ID=362802" target="_blank">Emiliano Innocenti (362802)</a></p>
 				<p>Loaded in <?=round((microtime(true) - $start_time) * 1000, 2); ?> ms</p>
 			</div>
 		</div>

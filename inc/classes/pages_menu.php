@@ -198,7 +198,7 @@ class Menu
 				
 		echo '
 		<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
-			<div class="container">
+			<div class="container-fluid">
 				<a class="navbar-brand" href="' . SITE_URL . '">' . $config["event_name"] . '</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
