@@ -565,20 +565,23 @@ class Flight
 				}
 				else
 				{
-					$token = md5(uniqid($u->vid . date("Y-m-d H:i:s")));
+					//CONFIRMATION DISABLED
+					$token = md5(uniqid($u->vid . date("Y-m-d H:i:s")));					
 					$this->token = $token;
 					$this->bookedBy = $u->vid;
 
-					if ($db->Query("UPDATE flights SET booked = 1, booked_by = §, booked_at = NOW(), token = § WHERE id = §", $u->vid, $token, $this->id))
-					{					
+					if ($db->Query("UPDATE flights SET booked = 2, booked_by = §, booked_at = NOW(), token = § WHERE id = §", $u->vid, $token, $this->id))
+					{				
 						if (!empty($u->email))
 						{
-							if ($this->SendConfirmationEmail() === 0)
+							
+							//if ($this->SendConfirmationEmail() === 0)
 								return 0;
 						}
 						else
 							return 0;
 					}
+					//END CONFIRMATION DISABLED
 				}
 			}
 			else
@@ -600,6 +603,9 @@ class Flight
 		
 		if (!$u || $u && ($u->vid = $this->bookedBy || $u->permission > 1))
 		{	
+			if ($db->Query("UPDATE flights SET booked=2, token='' WHERE id=§", $this->id))
+				return 0;
+
 			if ($this->booked == "prebooked")
 			{
 				if ($db->Query("UPDATE flights SET booked = 2, token = '' WHERE id = §", $this->id))
