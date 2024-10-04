@@ -51,7 +51,8 @@ class Session
 		}
 		else
 		{
-			redirect("newlogin_ivao.php?url=" . SITE_URL);
+			//redirect("newlogin_ivao.php?url=" . SITE_URL);
+			redirect("login_ivao.php?url=" . SITE_URL);
 		}
 	}
 
