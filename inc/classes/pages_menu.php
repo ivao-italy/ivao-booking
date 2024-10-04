@@ -199,7 +199,8 @@ class Menu
 		echo '
 		<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="' . SITE_URL . '">' . $config["event_name"] . '</a>
+				<a class="navbar-brand" href="' . SITE_URL . '"><img src="https://cdn.it.ivao.aero/brand/Logo_Tag_WHITE_crop.svg" alt="IVAO IT" class="img-fluid" width="130">
+				&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;' . $config["event_name"] . '</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
