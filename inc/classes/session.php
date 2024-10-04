@@ -209,6 +209,7 @@ class Session
 				else
 				{
 					$f = Flight::Find($id);
+					$all = Flight::GetAll();
 					
 					if ($f == null)
 						echo json_encode(["error" => 404]);
@@ -244,7 +245,7 @@ class Session
 							}
 						}
 						else
-							echo $f->ToJSON();
+							echo $f->ToJSON($all);
 					}
 				}
 				die();

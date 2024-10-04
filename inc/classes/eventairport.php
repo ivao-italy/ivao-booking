@@ -139,17 +139,24 @@ class EventAirport
 
 	/**
 	 * Returns departure flights from the airport
+	 * @param Flight[] $allflights
 	 * @return Flight[]
 	 */
-	public function getDepartures()
+	public function getDepartures($allflights)
 	{
-		global $db;
 		$flights = [];
-		if ($query = $db->Query("SELECT * FROM flights WHERE origin_icao = § ORDER BY departure_time, flight_number", $this->icao))
+		foreach($allflights as $flt)
 		{
-			while ($row = $query->fetch_assoc())
-				$flights[] = new Flight($row);
+			if($flt->originIcao == $this->icao)
+			{
+				$flights[] = $flt;
+			}	
 		}
+		// if ($query = $db->Query("SELECT * FROM flights WHERE origin_icao = § ORDER BY departure_time, flight_number", $this->icao))
+		// {
+		// 	while ($row = $query->fetch_assoc())
+		// 		$flights[] = new Flight($row);
+		// }
 		return $flights;
 	}
 	
@@ -157,17 +164,24 @@ class EventAirport
 	 * Returns arrival flights from the airport
 	 * @return Flight[]
 	 */
-	public function getArrivals()
+	public function getArrivals($allflights)
 	{
-		global $db;
+		//global $db;
 		$flights = [];
-		if ($query = $db->Query("SELECT * FROM flights WHERE destination_icao = § ORDER BY arrival_time, flight_number", $this->icao))
+		foreach($allflights as $flt)
 		{
-			while ($row = $query->fetch_assoc())
+			if($flt->destinationIcao == $this->icao)
 			{
-				$flights[] = new Flight($row);
-			}
+				$flights[] =  $flt;
+			}	
 		}
+		// if ($query = $db->Query("SELECT * FROM flights WHERE destination_icao = § ORDER BY arrival_time, flight_number", $this->icao))
+		// {
+		// 	while ($row = $query->fetch_assoc())
+		// 	{
+		// 		$flights[] = new Flight($row);
+		// 	}
+		// }
 		return $flights;
 	}
 

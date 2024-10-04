@@ -14,14 +14,15 @@
  */
 function flightsTable($airport, $type)
 {
+	$allflights = Flight::GetAll(); 
 	if ($type == "departures")		
 	{
-		$flights = $airport->getDepartures();
+		$flights = $airport->getDepartures($allflights);
 		$result = '<div class="tab-pane fade show active table-responsive" id="departures' . $airport->icao . '" role="tabpanel">';
 	}
 	if ($type == "arrivals")
 	{
-		$flights = $airport->getArrivals();
+		$flights = $airport->getArrivals($allflights);
 		$result = '<div class="tab-pane fade table-responsive" id="arrivals' . $airport->icao . '" role="tabpanel">';
 	}	
 
@@ -54,7 +55,8 @@ function flightsTable($airport, $type)
 		$result .= '<tr>';		
 
 		if ($airline = $f->getAirline())
-			$result .= '<td data-toggle="tooltip" title="' . $airline->name . '" data-search="' . $airline->name . '" data-order="' . $airline->name . '">' . $airline->getLogo() . "</td>";		
+			//$result .= '<td data-toggle="tooltip" title="' . $airline->name . '" data-search="' . $airline->name . '" data-order="' . $airline->name . '">' . $airline->getLogo() . "</td>";		
+			$result .= '<td data-toggle="tooltip" title="' . $airline->name . '" data-search="' . $airline->name . '" data-order="' . $airline->name . '"><img src="https://cdn.it.ivao.aero/airlines/'.$airline->icao.'.png" style="max-width:200px" alt="Logo"></td>';
 		else
 			$result .= '<td data-search="' . $f->flightNumber . '" data-order="' . $f->flightNumber . '"></td>';
 
@@ -66,7 +68,7 @@ function flightsTable($airport, $type)
 		else
 			$result .= $f->callsign;
 	
-		$turnovers = $f->getTurnoverFlights();
+		$turnovers = $f->getTurnoverFlights($allflights);
 		$turnovers_names = array();
 		foreach ($turnovers as $turn)
 		{

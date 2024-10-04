@@ -71,10 +71,11 @@ class Flight
 	public static function ToJsonAll($full = false)
 	{
 		$flts = [];
-		foreach (Flight::GetAll() as $flt)
+		$all = Flight::GetAll();
+		foreach ($all as $flt)
 		{
 			if ($full)
-				$flts[] = json_decode($flt->ToJson(), true);
+				$flts[] = json_decode($flt->ToJson($all), true);
 			else
 				$flts[] = json_decode($flt->ToJsonLite(), true);
 		}
@@ -453,9 +454,10 @@ class Flight
 	/**
 	 * Converts the object fields to JSON, also adds the additional data from functions
 	 * Used by the JSON AJAX request
+	 * @param Flight[] $all
 	 * @return string JSON
 	 */
-	public function ToJson()
+	public function ToJson($all)
 	{
 		global $config;
 		$flight = (array)$this;
@@ -477,7 +479,7 @@ class Flight
 			"aircraftName" => $this->getAircraftName(),
 			"wxUrl" => $config["wx_url"],
 			"greatCircleDistanceNm" => $this->getGreatCircleDistance(),
-			"turnoverFlights" => $this->getTurnoverFlights(true),
+			"turnoverFlights" => $this->getTurnoverFlights($all, true),
 		];
 
 		return json_encode(array_merge($flight, $data));
@@ -808,11 +810,11 @@ class Flight
 	/**
 	 * Returns the turnover flights of this flight.
 	 * Flights are considered to be turnovers, if flight numbers are adjacent, timeframes don't collapse and airports are swapped
+	 * @param Flight[] $flts 
 	 * @return Flight[]
 	 */
-	public function getTurnoverFlights($toJson = false)
+	public function getTurnoverFlights($flts, $toJson = false)
 	{
-		$flts = Flight::GetAll(); 
 		$turnovers = [];
 
 		foreach ($flts as $flt)

@@ -42,9 +42,20 @@ class Airline
 	 */
 	public function getLogo()
 	{
+		// //New logo exists (UPSIZED BY IVAO IT)
+		// $newLogoPath = "https://cdn.it.ivao.aero/airlines/".$this->icao.".png";
+		// $file_headers = @get_headers($newLogoPath);
+		// if(!$file_headers || strpos($file_headers[0], '404')) 
+		// {
+		// 	return $newLogoPath;
+		// }
+
+		//Fallback on the old logo
 		$imgUrl = sprintf("img/airlines/%s.gif", $this->icao);
 		if (file_exists($imgUrl))
 			return sprintf('<img src="%s" alt="%s" class="img-fluid"> ', $imgUrl, $this->icao);
+
+		//Nothing found
 		return "";
 	}
 	
