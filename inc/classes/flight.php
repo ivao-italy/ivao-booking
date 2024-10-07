@@ -64,6 +64,23 @@ class Flight
 	}
 
 	/**
+	 * Gets all aircrafts from the database
+	 * @return Array 
+	 */
+	public static function GetAllAircraftNames()
+	{
+		global $dbNav;
+		$aircrafts = array();
+		if ($query = $dbNav->Query("SELECT * FROM nav_aircrafts"))
+		{
+			while ($row = $query->fetch_assoc())
+			$aircrafts[$row["icao"]] = $row["name"];
+		}
+		return $aircrafts;
+	}
+
+
+	/**
 	 * Converts all flights to JSON format
 	 * Used by the admin area through AJAX
 	 * @return string JSON
@@ -431,6 +448,7 @@ class Flight
 
 		return $t . $g;
 	}
+	
 	
 	/**
 	 * Returns the name of the aircraft from the NAV database

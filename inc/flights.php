@@ -12,9 +12,8 @@
  * @param Airport $airport 
  * @param string $type ["arrivals", "departures"]
  */
-function flightsTable($airport, $type)
-{
-	$allflights = Flight::GetAll(); 
+function flightsTable($allflights, $aircrafts, $airport, $type)
+{	
 	if ($type == "departures")		
 	{
 		$flights = $airport->getDepartures($allflights);
@@ -79,7 +78,7 @@ function flightsTable($airport, $type)
 		
 		$result .= '</td>';
 
-		$result .= '<td><span data-toggle="tooltip" title="' . $f->getAircraftName() . '">' . $f->aircraftIcao . ($f->aircraftFreighter ? "/F" : "") . '</span></td>';
+		$result .= '<td><span data-toggle="tooltip" title="' .  $aircrafts[$f->aircraftIcao] . '">' . $f->aircraftIcao . ($f->aircraftFreighter ? "/F" : "") . '</span></td>';
 		
 		if ($type == "arrivals")
 		{
@@ -120,6 +119,9 @@ function flightsTable($airport, $type)
 
 // getting all airports which are participating in the event
 $apts = EventAirport::GetAll();
+$allflights = Flight::GetAll();
+$aircrafts = Flight::GetAllAircraftNames();
+
 
 echo '<main role="main" class="container-fluid px-xl-5">
 		<div class="row">
@@ -168,7 +170,7 @@ if (count($apts) > 0)
 				</li>
 			</ul>
 			
-			<div class="tab-content">' . flightsTable($apt, "departures") . flightsTable($apt, "arrivals") . '</div>';
+			<div class="tab-content">' . flightsTable($allflights, $aircrafts, $apt, "departures") . flightsTable($allflights, $aircrafts, $apt, "arrivals") . '</div>';
 		
 		if (count($apts) > 1)
 			echo '</div>';

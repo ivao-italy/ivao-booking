@@ -13,7 +13,8 @@ $flts = Flight::GetAll();
 
 foreach ($flts as $flt)
 {
-	echo '<p><b>' . $flt->callsign . '</b> cEET: ' . $flt->getCalculatedEET() . ', aEET = ' . $flt->getActualEET() . '</p>';
+	//echo '<p><b>' . $flt->callsign . '</b> cEET: ' . $flt->getCalculatedEET() . ', aEET = ' . $flt->getActualEET() . '</p>';
+	echo '<p><b>' . $flt->callsign . '</b> cEET: ' . 0 . ', aEET = ' . $flt->getActualEET() . '</p>';
 }
 
 
