@@ -54,12 +54,7 @@ class Airport
 	 */
 	public function getCountryFlag($size = 32)
 	{
-		$imgUrl = sprintf("img/flags/%s/%s.png", $size, $this->country);
-
-		if (!file_exists($imgUrl))
-			$imgUrl = sprintf("img/flags/%s/_unknown.png", $size);
-			
-		return sprintf('<img src="%s" alt="%s" data-toggle="tooltip" title="Country: %s" class="img-fluid"> ', $imgUrl, $this->country, $this->country);
+		return sprintf('<img src="https://flagsapi.com/%s/shiny/%s.png" alt="%s" data-toggle="tooltip" title="Country: %s" class="img-fluid"> ', $this->country, $size, $this->country, $this->country);
 	}
 
 	/**
