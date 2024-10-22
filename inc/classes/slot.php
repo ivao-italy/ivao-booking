@@ -70,7 +70,19 @@ class Slot
 		global $db;
 		$flts = [];
 
-		if ($query = $db->Query("SELECT * FROM slots ORDER BY departure_time, slotbooking_number"))
+		if ($query = $db->Query("SELECT s.*, 
+								ac.name as aircraft_name, 
+								apd.name as origin_name, 
+								apd.country as origin_country, 
+								apa.name as destination_name, 
+								apa.country as destination_country
+								FROM slots as s
+								INNER JOIN timeframes as t on s.timeframe_id = t.id
+								LEFT OUTER JOIN nav_aircrafts as ac on ac.icao = s.aircraft_icao
+								LEFT OUTER JOIN nav_airports as apd on apd.icao = s.origin_icao
+								LEFT OUTER JOIN nav_airports as apa on apa.icao = s.destination_icao
+								ORDER BY t.time;
+		"))
 		{
 			while ($row = $query->fetch_assoc())
 				$flts[] = new Slot($row);
@@ -123,6 +135,7 @@ class Slot
 
 	public $id, $timeframeId, $callsign, $aircraftIcao, $aircraftFreighter, $departureTime, $arrivalTime, $originIcao, $destinationIcao, $terminal, $gate, $route, $isArrivalEstimated, $isDepartureEstimated;
 	public $booked, $bookedAt, $bookedBy;
+	public $aircraftName, $originName, $originCountry, $destinationName, $destinationCountry, $bookedRaw;
 
 	/**
 	 * @param array $row - associative array from fetch_assoc()
@@ -144,6 +157,14 @@ class Slot
 		$this->isArrivalEstimated = false;
 		$this->isDepartureEstimated = false;
 
+		//JOINS
+		if(isset($row["aircraft_name"])) $this->aircraftName = $row["aircraft_name"];
+		if(isset($row["origin_name"])) $this->originName = $row["origin_name"];
+		if(isset($row["origin_country"])) $this->originCountry = $row["origin_country"];
+		if(isset($row["destination_name"])) $this->destinationName = $row["destination_name"];
+		if(isset($row["destination_country"])) $this->destinationCountry = $row["destination_country"];
+
+		$this->bookedRaw = $row["booked"];
 		switch ($row["booked"])
 		{
 			case 1:

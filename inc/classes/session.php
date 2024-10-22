@@ -72,7 +72,7 @@ class Session
 	 * Function checks access to the site
 	 * If we are not logged in and requested page is profile or mybookings, redirects us to the main page, because profile page is only available as logged in
 	 */
-	public static function CheckAccess()
+	public static function CheckAccess($page)
 	{
 		global $config, $page;
 		$user = Session::User();
@@ -103,7 +103,21 @@ class Session
 		* 		if we are not admins/editors and logged in, logs us out
 		* 		if we are not logged in, redirects to the maintenance page
 		*/
-		if ($config["mode"] != 1)
+		// switch($config["mode"])
+		// {
+		// 	case 0: //No opened yet
+		// 		if (Session::LoggedIn() && $user->permission < 2) Session::IVAOLogout();
+		// 		if (!Session::LoggedIn()) Session::redirIfNotThere("maintenance");
+		// 		break;
+		// 	case 2: // Closed								
+		// 		if (Session::LoggedIn() && $user->permission < 2) break;
+		// 		if (!Session::LoggedIn()) Session::redirIfNotThere("timetable");
+		// 		break;
+		// 	case 1:
+		// 	default:
+		// 		break;
+		// }
+		if ($config["mode"] == 0)
 		{
 			if (Session::LoggedIn() && $user->permission < 2)
 				Session::IVAOLogout();
@@ -111,6 +125,17 @@ class Session
 			if (!Session::LoggedIn())
 				Session::redirIfNotThere("maintenance");
 		}
+
+		if ($config["mode"] == 2)
+		{
+			if (Session::LoggedIn() && $user->permission < 2)
+				Session::redirIfNotThere("timetable");
+			
+			if (!Session::LoggedIn())
+				Session::redirIfNotThere("maintenance");
+		}
+
+
 		
 		/**
 		 * If page is admin, and we're logged in with lower permission than 2,

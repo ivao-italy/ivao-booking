@@ -26,7 +26,7 @@ class Content
 			new Content("slot_instructions", "Private slot instructions", "page"),
 			new Content("403", "403 - forbidden", "page"),
 			new Content("404", "404 - not found", "page"),
-			new Content("maintenance", "Under maintenance", "page"),
+			new Content("maintenance", "Under maintenance", "page"),			
 			new Content("flight_booking", "Email: flight booking", "email"),
 			new Content("slot_request", "Email: slot requested", "email"),
 			new Content("slot_accepted", "Email: slot accepted", "email"),

@@ -64,6 +64,36 @@ class Flight
 	}
 
 	/**
+	 * Gets all flights from the database
+	 * @return Flight[] 
+	 */
+	public static function GetAllBooked()
+	{
+		global $db;
+		$flts = [];
+
+		if ($query = $db->Query("SELECT f.*, 
+								ac.name as aircraft_name, 
+								apd.name as origin_name, 
+								apd.country as origin_country, 
+								apa.name as destination_name, 
+								apa.country as destination_country
+								FROM flights f
+								LEFT OUTER JOIN nav_aircrafts as ac on ac.icao = f.aircraft_icao
+								LEFT OUTER JOIN nav_airports as apd on apd.icao = f.origin_icao
+								LEFT OUTER JOIN nav_airports as apa on apa.icao = f.destination_icao
+								WHERE booked > 0
+								ORDER BY 
+								case WHEN f.origin_icao IN (SELECT icao from airports) then f.departure_time else f.arrival_time end,
+								flight_number;"))
+		{
+			while ($row = $query->fetch_assoc())
+				$flts[] = new Flight($row);
+		}
+		return $flts;
+	}
+
+	/**
 	 * Gets all aircrafts from the database
 	 * @return Array 
 	 */
@@ -262,6 +292,7 @@ class Flight
 
 	public $id, $flightNumber, $callsign, $aircraftIcao, $aircraftFreighter, $originIcao, $destinationIcao, $departureTime, $isDepartureEstimated, $arrivalTime, $isArrivalEstimated, $terminal, $gate, $route;
 	public $booked, $bookedAt, $bookedBy, $token;
+	public $aircraftName, $originName, $originCountry, $destinationName, $destinationCountry, $bookedRaw;
 	/**
 	 * @param array $row - associative array from fetch_assoc()
 	 */
@@ -282,7 +313,15 @@ class Flight
 		$this->token = $row["token"];
 		$this->isDepartureEstimated = false;
 		$this->isArrivalEstimated = false;
+		
+		//JOINS
+		if(isset($row["aircraft_name"])) $this->aircraftName = $row["aircraft_name"];
+		if(isset($row["origin_name"])) $this->originName = $row["origin_name"];
+		if(isset($row["origin_country"])) $this->originCountry = $row["origin_country"];
+		if(isset($row["destination_name"])) $this->destinationName = $row["destination_name"];
+		if(isset($row["destination_country"])) $this->destinationCountry = $row["destination_country"];
 
+		$this->bookedRaw = $row["booked"];
 		switch ($row["booked"])
 		{
 			case 1:

@@ -9,10 +9,28 @@
 ?>
 
 <main class="container" role="main">
+<?php 
+global $config;
+
+if($config['mode'] == 0)
+{
+?>
 	<div class="alert alert-warning" role="alert">
 		<h4 class="alert-heading">Maintenance in progress</h4>
 		<hr />
 		<p>The system is under maintenance, therefore it can&#39;t be used for flight booking purposes currently. Please check back regularly!</p>
 		<p>If you think this message has been appeared by mistake, please contact the division staff!</p>
 	</div>
+<?php
+} else if($config['mode'] == 2)
+{
+?>
+	<div class="alert alert-success" role="alert">
+		<h4 class="alert-heading">The event is ongoing! You cannot book flights anymore.</h4>
+		<hr />
+		<p>If you need to take a look of what is scheduled today, you can login to get access to the full time table.</p>
+	</div>
+<?php
+}
+?> 
 </main>

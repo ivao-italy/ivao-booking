@@ -54,8 +54,20 @@ class Airport
 	 */
 	public function getCountryFlag($size = 32)
 	{
-		return sprintf('<img src="https://flagsapi.com/%s/shiny/%s.png" alt="%s" data-toggle="tooltip" title="Country: %s" class="img-fluid"> ', $this->country, $size, $this->country, $this->country);
+		return self::GetFlag($this->country, $size);
+		//return sprintf('<img src="https://flagsapi.com/%s/shiny/%s.png" alt="%s" data-toggle="tooltip" title="Country: %s" class="img-fluid"> ', $this->country, $size, $this->country, $this->country);
 	}
+
+	/**
+	 * Returns the country flag PNG if exists.
+	 * @param int $size = 32
+	 * @return string HTML
+	 */
+	public static function GetFlag($country, $size = 32)
+	{
+		return sprintf('<img src="https://flagsapi.com/%s/shiny/%s.png" alt="%s" data-toggle="tooltip" title="Country: %s" class="img-fluid"> ', $country, $size, $country, $country);
+	}
+
 
 	/**
 	 * Returns the METAR of the airport.
