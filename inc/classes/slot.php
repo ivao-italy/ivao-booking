@@ -392,34 +392,34 @@ class Slot
 			if ($this->booked == "requested" && $array["booked"] == 2)
 			{
 				// requested -> granted
-				$this->timeframeId = $array["timeframe_id"];
-				$this->terminal = $array["terminal"];
-				$this->gate = $array["gate"];
-				$this->route = $array["route"];
+				// $this->timeframeId = $array["timeframe_id"];
+				// $this->terminal = $array["terminal"];
+				// $this->gate = $array["gate"];
+				// $this->route = $array["route"];
 
-				$user = User::Find($this->bookedBy);
-				if ($user && !empty($user->email))
-				{
-					$email = $this->EmailReplaceVars(file_get_contents("contents/slot_accepted.html"));
-					Email::Prepare($email, $user->getFullname(), $user->email, "Your slot has been accepted");
-				}
+				// $user = User::Find($this->bookedBy);
+				// if ($user && !empty($user->email))
+				// {
+				// 	$email = $this->EmailReplaceVars(file_get_contents("contents/slot_accepted.html"));
+				// 	Email::Prepare($email, $user->getFullname(), $user->email, "Your slot has been accepted");
+				// }
 			}
 			else if ($array["booked"] == 0)
 			{
 				// requested/booked -> rejected
-				$user = User::Find($this->bookedBy);
-				if ($user && !empty($user->email))
-				{
-					// if a rejection message has been left
-					if (!empty($array["reject_message"]))
-						$rejectMessage = "Message of the evaluator:<br>" . $array["reject_message"];
-					else
-						$rejectMessage = "No message has been left by the evaluator.";
+				// $user = User::Find($this->bookedBy);
+				// if ($user && !empty($user->email))
+				// {
+				// 	// if a rejection message has been left
+				// 	if (!empty($array["reject_message"]))
+				// 		$rejectMessage = "Message of the evaluator:<br>" . $array["reject_message"];
+				// 	else
+				// 		$rejectMessage = "No message has been left by the evaluator.";
 
-					$email = $this->EmailReplaceVars(file_get_contents("contents/slot_rejected.html"));
-					$email = str_replace("%slot_rejectMessage%", $rejectMessage, $email);
-					Email::Prepare($email, $user->getFullname(), $user->email, "Your slot has been rejected");
-				}
+				// 	$email = $this->EmailReplaceVars(file_get_contents("contents/slot_rejected.html"));
+				// 	$email = str_replace("%slot_rejectMessage%", $rejectMessage, $email);
+				// 	Email::Prepare($email, $user->getFullname(), $user->email, "Your slot has been rejected");
+				// }
 				$toBeDeleted = true;
 			}
 			else
@@ -427,17 +427,17 @@ class Slot
 				// if modification was made in timeframe, terminal, gate or route, we're sending a mail about the modification
 				if ($array["timeframe_id"] != $this->timeframeId || $array["terminal"] != $this->terminal || $array["gate"] != $this->gate || $array["route"] != $this->route)
 				{
-					$this->timeframeId = $array["timeframe_id"];
-					$this->terminal = $array["terminal"];
-					$this->gate = $array["gate"];
-					$this->route = $array["route"];
+					// $this->timeframeId = $array["timeframe_id"];
+					// $this->terminal = $array["terminal"];
+					// $this->gate = $array["gate"];
+					// $this->route = $array["route"];
 
-					$user = User::Find($this->bookedBy);
-					if ($user && !empty($user->email))
-					{
-						$email = $this->EmailReplaceVars(file_get_contents("contents/slot_modified.html"));
-						Email::Prepare($email, $user->getFullname(), $user->email, "Your slot has been modified");
-					}
+					// $user = User::Find($this->bookedBy);
+					// if ($user && !empty($user->email))
+					// {
+					// 	$email = $this->EmailReplaceVars(file_get_contents("contents/slot_modified.html"));
+					// 	Email::Prepare($email, $user->getFullname(), $user->email, "Your slot has been modified");
+					// }
 				}
 			}
 
