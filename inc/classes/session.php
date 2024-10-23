@@ -51,8 +51,8 @@ class Session
 		}
 		else
 		{
-			//redirect("newlogin_ivao.php?url=" . SITE_URL);
-			redirect("login_ivao.php?url=" . SITE_URL);
+			redirect("newlogin_ivao.php?url=" . SITE_URL);
+			//redirect("login_ivao.php?url=" . SITE_URL);
 		}
 	}
 
@@ -72,7 +72,7 @@ class Session
 	 * Function checks access to the site
 	 * If we are not logged in and requested page is profile or mybookings, redirects us to the main page, because profile page is only available as logged in
 	 */
-	public static function CheckAccess($page)
+	public static function CheckAccess()
 	{
 		global $config, $page;
 		$user = Session::User();
