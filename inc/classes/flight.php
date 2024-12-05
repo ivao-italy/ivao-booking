@@ -912,11 +912,11 @@ class Flight
 				} else {
 					//IATA Code not used -> Turnover logic:
 					//Same Airline
-					//Flights are separated for 20' till 50'
+					//Flights are separated for 20' till 90'
 					//Same gate
 					//Commercial callsign
 					if ($callsignA == $callsignB
-						&& $startB - $endA >= 1200
+						&& $startB - $endA >= 1200 && $startB - $endA <= 5400
 						&& $gateA == $gateB
 						&& (strlen($this->callsign) >= 4 && strlen($flt->callsign) >= 4)
 						)
