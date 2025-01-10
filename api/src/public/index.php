@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 
+//TODO IN CONFIG DI
 const API_KEY = '';
 
 $app = AppFactory::create();
@@ -25,11 +26,30 @@ $app->get("/flights/{dof}/{callsign}/", function (Request $request, Response $re
 
     $params = array(":callsign" => $args['callsign'], ":dof" => $args['dof']);
 
-    $sql = "SELECT f.callsign, f.booked_by, f.aircraft_icao, f.gate 
+    // $sql = "SELECT f.callsign, f.booked_by, f.aircraft_icao, f.gate 
+    //         FROM flights f
+    //         LEFT OUTER JOIN airports as dep_apt ON f.origin_icao = dep_apt.icao
+    //         WHERE f.callsign = :callsign
+    //         AND DATE_FORMAT(CASE WHEN dep_apt.icao IS NOT NULL THEN f.departure_time ELSE f.arrival_time END, '%Y%m%d') = :dof
+    //         UNION ALL
+    //         SELECT s.callsign, s.booked_by, s.aircraft_icao, s.gate
+    //         FROM slots s
+    //         where s.callsign = :callsign";
+
+    $sql = "SELECT f.callsign, f.booked_by, f.aircraft_icao, f.gate, 
+                CASE WHEN dep_apt.icao IS NOT NULL THEN 'departure' ELSE 'arrival' END AS TypeOfFlight
             FROM flights f
             LEFT OUTER JOIN airports as dep_apt ON f.origin_icao = dep_apt.icao
             WHERE f.callsign = :callsign
-            AND DATE_FORMAT(CASE WHEN dep_apt.icao IS NOT NULL THEN f.departure_time ELSE f.arrival_time END, '%Y%m%d') = :dof";
+            AND DATE_FORMAT(CASE WHEN dep_apt.icao IS NOT NULL THEN f.departure_time ELSE f.arrival_time END, '%Y%m%d') = :dof
+            UNION ALL
+            SELECT s.callsign, s.booked_by, s.aircraft_icao, s.gate,
+                CASE WHEN dep_apt.icao IS NOT NULL THEN 'departure' ELSE 'arrival' END AS TypeOfFlight
+            FROM slots s
+            INNER JOIN timeframes t ON s.timeframe_id = t.id
+            LEFT OUTER JOIN airports as dep_apt ON s.origin_icao = dep_apt.icao
+            where s.callsign = :callsign
+            AND DATE_FORMAT(t.time, '%Y%m%d') = :dof";
 
     try {
         $db = new Db();
