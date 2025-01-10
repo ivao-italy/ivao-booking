@@ -1,0 +1,5 @@
+GET https://booking.it.ivao.aero/api/flights/20250119/WMT8605/ HTTP/1.1
+X-Api-Key: 2024IoSonoCarmineAirSiciliaColBidplano25yearsOfIvaoIt
+
+
+###
