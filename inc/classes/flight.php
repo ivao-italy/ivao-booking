@@ -876,6 +876,7 @@ class Flight
 
 		foreach ($flts as $flt)
 		{
+			
 			// if origin and destination airports are swapped
 			if ($this->originIcao == $flt->destinationIcao && $this->destinationIcao == $flt->originIcao)
 			{
@@ -883,6 +884,10 @@ class Flight
 				$endA = strtotime($this->arrivalTime);
 				$startB = strtotime($flt->departureTime);
 				$endB = strtotime($flt->arrivalTime);
+				$times = array($startA, $startB, $endA, $endB);			
+				sort($times); //Sort the times of the 2 flights to get central connection time ingnoring ICAOs (allowing also turnaround outside event apt)
+				$deltaTime = abs($times[2] - $times[3]);
+
 				$callsignA = $this->callsign;
 				$callsignB = $flt->callsign;
 				$gateA = $this->terminal . "-" . $this->gate;
@@ -898,10 +903,11 @@ class Flight
 				if($this->flightNumber != $this->callsign && $flt->flightNumber != $flt->callsign)
 				{
 					// if the flight numbers differs with +- 1
-					//Flights are separated for 20' till 50'
+					//Flights are separated for 20' till 90'
 					if (is_numeric($fltnoA) && is_numeric($fltnoB) 
-						&& abs($fltnoA - $fltnoB) == 1 && $startB - $endA >= 1200
-						//&& $startB - $endA <= 3000
+						&& $gateA == $gateB
+						&& abs($fltnoA - $fltnoB) == 1 
+						&& $deltaTime >= 1200 && $deltaTime <= 5400
 						)
 					{
 						if ($toJson)
@@ -916,8 +922,8 @@ class Flight
 					//Same gate
 					//Commercial callsign
 					if ($callsignA == $callsignB
-						&& $startB - $endA >= 1200 && $startB - $endA <= 5400
 						&& $gateA == $gateB
+						&& $deltaTime >= 1200 && $deltaTime <= 5400
 						&& (strlen($this->callsign) >= 4 && strlen($flt->callsign) >= 4)
 						)
 					{
