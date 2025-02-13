@@ -886,12 +886,12 @@ class Flight
 				$endB = strtotime($flt->arrivalTime);
 				$times = array($startA, $startB, $endA, $endB);			
 				sort($times); //Sort the times of the 2 flights to get central connection time ingnoring ICAOs (allowing also turnaround outside event apt)
-				$deltaTime = abs($times[2] - $times[3]);
+				$deltaTime = $times[3] - $times[2];
 
 				$callsignA = $this->callsign;
 				$callsignB = $flt->callsign;
 				$gateA = $this->terminal . "-" . $this->gate;
-				$gateB = $this->terminal . "-" . $this->gate;
+				$gateB = $flt->terminal . "-" . $flt->gate;
 				$fltnoA = substr($this->flightNumber, 2);
 				$fltnoB = substr($flt->flightNumber, 2);
 
