@@ -84,22 +84,22 @@ CREATE TABLE `timeframes` (
   `count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `vid` int(11) NOT NULL,
-  `firstname` varchar(30) NOT NULL,
-  `lastname` varchar(30) NOT NULL,
-  `rating_atc` varchar(3) NOT NULL,
-  `rating_pilot` varchar(3) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `privacy` tinyint(1) NOT NULL,
-  `division` varchar(2) NOT NULL,
-  `country` varchar(2) NOT NULL,
-  `staff` text DEFAULT NULL,
-  `refresh_token` text DEFAULT NULL,
-  `permission` int(11) NOT NULL,
-  `last_login` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+-- CREATE TABLE `users` (
+--   `id` int(11) NOT NULL,
+--   `vid` int(11) NOT NULL,
+--   `firstname` varchar(30) NOT NULL,
+--   `lastname` varchar(30) NOT NULL,
+--   `rating_atc` varchar(3) NOT NULL,
+--   `rating_pilot` varchar(3) NOT NULL,
+--   `email` varchar(50) NOT NULL,
+--   `privacy` tinyint(1) NOT NULL,
+--   `division` varchar(2) NOT NULL,
+--   `country` varchar(2) NOT NULL,
+--   `staff` text DEFAULT NULL,
+--   `refresh_token` text DEFAULT NULL,
+--   `permission` int(11) NOT NULL,
+--   `last_login` datetime NOT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 
 ALTER TABLE `airports`
@@ -124,9 +124,9 @@ ALTER TABLE `timeframes`
   ADD KEY `airport_icao` (`airport_icao`),
   ADD KEY `time` (`time`);
 
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `vid` (`vid`);
+-- ALTER TABLE `users`
+--   ADD PRIMARY KEY (`id`),
+--   ADD UNIQUE KEY `vid` (`vid`);
 
 
 ALTER TABLE `airports`
@@ -141,8 +141,8 @@ ALTER TABLE `slots`
 ALTER TABLE `timeframes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+-- ALTER TABLE `users`
+--   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `flights`
   ADD CONSTRAINT `flights_FK_turnover_id` FOREIGN KEY (`turnover_id`) REFERENCES `flights` (`id`);

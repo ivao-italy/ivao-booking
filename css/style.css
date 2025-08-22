@@ -23,16 +23,12 @@ h1 {
 	font-family: 'Poppins', sans-serif;
 	font-size: 3rem;
 	margin-bottom: 2rem;
-	font-weight: 700;
 	color: #0d2c99;
-	font-style: italic;
 }
 
 h2 {
 	font-family: 'Poppins', sans-serif;
 	font-size: 2rem;
-	font-weight: 600;
-	font-style: italic;
 }
 
 h3, h4, h5 {

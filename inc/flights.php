@@ -60,7 +60,8 @@ function flightsTable($airport, $type)
 		$result .= '<tr>';		
 
 		if ($airline = $f->getAirline())
-			$result .= '<td data-search="' . $airline->name . '" data-order="' . $airline->name . '">' . $airline->getLogo() . " ";
+			//$result .= '<td data-search="' . $airline->name . '" data-order="' . $airline->name . '">' . $airline->getLogo() . " ";
+			$result .= '<td title="' . $airline->name . '" data-search="' . $airline->name . '" data-order="' . $airline->name . '"><img src="https://cdn.it.ivao.aero/airlines/'.$airline->icao.'.png" style="max-width:200px" alt="Logo"></td>';
 		else
 			$result .= '<td data-search="' . $f->flightNumber . '" data-order="' . $f->flightNumber . '">';		
 		$result .= '</td>';

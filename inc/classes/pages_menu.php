@@ -202,7 +202,7 @@ class Menu
 				<a class="navbar-brand" href="' . SITE_URL . '">';
 
 		if (!empty($config["division_logo"]))
-			echo '<img class="img-fluid" src="' . $config["division_logo"] . '" width="130">';
+			echo '<img class="img-fluid" src="' . $config["division_logo"] . '" width="130">&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;' . $config["event_name"];
 		else
 			echo $config["event_name"];
 
