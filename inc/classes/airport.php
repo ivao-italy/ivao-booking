@@ -53,14 +53,14 @@ class Airport
 	public function getCountryFlag($size = 32)
 	{
 		$files = [
-			sprintf("img/flags/%s/%s.png", $size, strtolower($this->country)),
-			sprintf("img/flags/%s/%s.png", $size, $this->country),
-			sprintf("img/flags/%s/_unknown.png", $size),
+			sprintf("https://cdn.it.ivao.aero/flags/%s/%s.png", $size, strtolower($this->country)),
+			sprintf("https://cdn.it.ivao.aero/flags/%s/%s.png", $size, $this->country),
+			sprintf("https://cdn.it.ivao.aero/flags/%s/_unknown.png", $size),
 		];
 
 		foreach ($files as $file) 
 		{
-			if (!file_exists($file))
+			if (!file_get_contents($file))
 				continue;
 			
 			return sprintf('<img src="%s" alt="%s" data-toggle="tooltip" title="%s" class="img-fluid flag-%s"> ', $file, $this->country, $this->country, $size);
