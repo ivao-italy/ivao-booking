@@ -223,7 +223,7 @@ function getFlight(id)
 				var content = '<div class="list-group">';
 				$.each(data.turnoverFlights, function() {
 					content += '<a href="javascript:void(0)" class="list-group-item list-group-item-action" onclick="getFlight(' + this.id + ')">';
-					content += (this.airline ? this.airline.logo : "") + '<strong>' + this.callsign + '</strong> ' + this.originIcao + ' – ' + this.destinationIcao + '<span class="float-right">';
+					content += (this.airline ? this.airline.logoSmall : "") + '<strong>' + this.callsign + '</strong> ' + this.originIcao + ' – ' + this.destinationIcao + '<span class="float-right">';
 					switch (this.booked)
 					{
 						case 'free':

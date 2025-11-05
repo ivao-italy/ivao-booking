@@ -1,0 +1,288 @@
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  background: linear-gradient(135deg, #091120 0%, #08101d 100%);
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.departure-board {
+  background: linear-gradient(135deg, #3b3b3b 0%, #242424 100%);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  margin: 20px;
+  overflow: hidden;
+}
+
+.board-header {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.board-title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.board-icon {
+  font-size: 2rem;
+}
+
+.board-time {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 300;
+}
+
+.board-date {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+.column-headers {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px 30px;
+  display: grid;
+  grid-template-columns: 100px 250px 350px 120px 450px 200px;
+  gap: 15px;
+  color: white;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.flights-container {
+  max-height: none;
+  overflow: visible;
+}
+
+.flight-row {
+  padding: 12px 30px;
+  display: grid;
+  grid-template-columns: 100px 250px 350px 120px 450px 200px;
+  gap: 15px;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.2s;
+  color: white;
+}
+
+/* Striped row effect */
+.flight-row:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.flight-row:nth-child(even) {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.flight-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.flight-time {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.flight-destination {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.airline-logo {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-right: 5px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-align: center;
+  color: white;
+}
+
+.airline-logo>img {
+  max-width: 180px;
+  background-color: #fff;
+}
+
+.flight-number {
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.gate-badge {
+  background: #ffd700;
+  color: #2d4a7c;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1.4rem;
+  display: inline-block;
+  text-align: center;
+}
+
+.status-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.footer-qr {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-top: 2px solid rgba(255, 255, 255, 0.15);
+  margin-top: 10px;
+}
+
+.qr-placeholder {
+  width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: #666;
+}
+
+.qr-placeholder img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.qr-text {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.qr-subtext {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+}
+
+/* Loader overlay styles */
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #ffd700;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 24px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader-text {
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  letter-spacing: 1px;
+}
+
+@media (max-width: 1200px) {
+
+  .column-headers,
+  .flight-row {
+    grid-template-columns: 80px 200px 350px 100px 450px 180px;
+    font-size: 0.85rem;
+  }
+
+  .status-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+}

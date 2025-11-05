@@ -1,0 +1,11 @@
+GET https://booking.it.ivao.aero/api/flights/20250118/BTY8538/ HTTP/1.1
+X-Api-Key:2024IoSonoCarmineAirSiciliaColBidplano25yearsOfIvaoIt
+
+###
+
+
+GET https://booking.it.ivao.aero/api/flights HTTP/1.1
+X-Api-Key:2024IoSonoCarmineAirSiciliaColBidplano25yearsOfIvaoIt
+
+
+###

@@ -41,18 +41,17 @@ class Airline
 	public function getLogo($small = false)
 	{
 		$files = [
-			sprintf("img/airlines/%s.png", $this->icao),
-			sprintf("img/airlines/%s.gif", $this->icao)
+			sprintf("https://cdn.it.ivao.aero/airlines/%s.png", $this->icao),
+			sprintf("https://cdn.it.ivao.aero/airlines/%s.gif", $this->icao)
 		];
 
 		$small_size = $small ? ' style="width: 40%"' : '';
 
 		foreach ($files as $file)
 		{
-			if (!file_exists($file))
-				continue;
-
-			return sprintf('<img data-toggle="tooltip" title="%s" src="%s" alt="%s" class="img-fluid airline-logo"%s> ', $this->callsign, $file, $this->icao, $small_size);
+			// if (!file_exists($file))
+			// 	continue;
+			return sprintf('<img data-toggle="tooltip" title="%s" src="https://cdn.it.ivao.aero/airlines/%s.png" alt="%s" class="img-fluid airline-logo" %s> ', $this->callsign, $this->icao, $this->icao, $small_size);
 		}
 	}
 	
